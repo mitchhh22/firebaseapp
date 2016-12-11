@@ -1,0 +1,38 @@
+version: '2'
+services:
+   flashlight:
+     build:
+       context: ./flashlight/
+       dockerfile: Dockerfile
+     links:
+      - elasticsearch:elasticsearch
+     env_file:
+      - ./config.env
+   elasticsearch:
+     image: elasticsearch:5.1.1
+     ports:
+       - "9200:9200"
+       - "9300:9300"
+   frontend:
+     build:
+       context: ./frontend/
+       dockerfile: Dockerfile
+     links:
+      - elasticsearch:elasticsearch
+   api:
+     build:
+      context: ./api/
+      dockerfile: Dockerfile
+     links:
+      - elasticsearch:elasticsearch
+     env_file:
+      - ./config.env
+   nginx:
+     build:
+      context: ./nginx/
+      dockerfile: Dockerfile
+     links:
+      - frontend:frontend
+      - api:api
+     ports:
+       - "80:80"    

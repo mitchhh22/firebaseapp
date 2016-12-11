@@ -1,0 +1,10 @@
+FROM node:7.2.0
+COPY . /srv
+WORKDIR /srv
+
+RUN npm install -g serve
+
+WORKDIR example
+
+EXPOSE 3000
+CMD serve
