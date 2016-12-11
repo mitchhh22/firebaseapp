@@ -10,9 +10,6 @@ services:
       - ./config.env
    elasticsearch:
      image: elasticsearch:5.1.1
-     ports:
-       - "9200:9200"
-       - "9300:9300"
    frontend:
      build:
        context: ./frontend/
